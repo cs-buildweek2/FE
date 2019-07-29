@@ -6,16 +6,18 @@ let numRows = maxRowValue-minRowValue
 let numCols = maxColValue-minColValue
 
 export function convertXYtoArrayIndex(x,y){
-  //(30,30) = 0
-  //(90,90) = 3599
-  let index = (x-minRowValue) + (y-minColValue)*numCols;
+  //map[0] = (30,90)
+  //map[3599] = (90,30)
+  let currentRow = -(y-90)
+  let currentCol = x-30
+  let index = currentRow*numRows + currentCol 
   return index
 }
 
 
 export function convertIndextoXY(index){
-  let y = Math.floor(index / numRows)+30 //btw 1-50
-  let x = (index % numRows)+30
+  let x = index % numRows + 30
+  let y =  -Math.floor(index / numRows) + 90
   return { x, y }
 }
 
@@ -26,14 +28,14 @@ export function getAdjacentRooms(gameMap, index){
   let {x,y} = convertIndextoXY(index);
 
   //North
-  if(y<numCols-1){
+  if(y<maxColValue-1){
     nesw.push(gameMap[convertXYtoArrayIndex(x,y+1)]);
   }else{
     nesw.push(null);
   }
 
   //East
-  if(x<numRows-1){
+  if(x<maxRowValue-1){
     nesw.push(gameMap[convertXYtoArrayIndex(x+1,y)]);
   }else{
     nesw.push(null);
@@ -69,7 +71,6 @@ export function getRoomDisplayState(gameMap, index, nesw){
     }
     //east
     if(nesw[1] != null){
-      console.log(nesw[1])
       if(nesw[1].exits.indexOf('w') !== -1){
         return '?'
       }

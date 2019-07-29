@@ -19,13 +19,21 @@ const RoomCell = styled.div`
 class Room extends Component {
   render() {
     let {displayState, index, gameMap} = this.props
+    let {x,y} = convertIndextoXY(index)
+    if( x===59 && y === 61){
+      console.log(index)
+      console.log(x + ', ' + y)
+      let nesw = getAdjacentRooms(gameMap, index)
+      console.log(nesw)
+    }
+    /*
     if(index===1831){
       let nesw = getAdjacentRooms(gameMap, index)
       let {x,y} = convertIndextoXY(index)
       console.log(x + ', ' + y)
       console.log(nesw)
       console.log(getRoomDisplayState(gameMap, index, nesw))
-    }
+    }*/
     /*
     if(index % 60 === 0){
       displayState = index
