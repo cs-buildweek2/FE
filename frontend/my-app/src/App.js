@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { connect } from 'react-redux';
+import { simpleAction } from './actions/index.js';
 
 function App() {
   return (
@@ -24,4 +25,12 @@ function App() {
   );
 }
 
-export default connect() (App);
+const mapStateToProps = state => ({
+  ...state
+ })
+
+const mapDispatchToProps = dispatch => ({
+  simpleAction: () => dispatch(simpleAction())
+ })
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
