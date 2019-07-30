@@ -6,16 +6,14 @@ import styled from 'styled-components';
 
 const BodyContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
-  border: 1px solid red;
 `;
 
 const BodyRightContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  border: 1px solid green;
+  flex-direction: column;
+  width: 30%;
 `;
 
 

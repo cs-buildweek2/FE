@@ -5,8 +5,15 @@ import Body from './components/Body';
 import Footer from './components/Footer';
 import { initTestMap ,initTestCurrentRoom , initTestCurrentPlayer } from './gameFunctions/';
 import './App.css';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { simpleAction } from './actions/index.js';
+
+const AppContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+`;
 
 class App extends Component {
   constructor(props) {
@@ -23,11 +30,11 @@ class App extends Component {
     let {map, currentRoom, currentPlayer} = this.state
     console.log('**app.js**')
     return (
-      <div className="App">
+      <AppContainer>
         <Header />
         <Body map={map} currentRoom={currentRoom} currentPlayer={currentPlayer} />
         <Footer currentRoom={currentRoom} />
-      </div>
+      </AppContainer>
     );
   }
 }

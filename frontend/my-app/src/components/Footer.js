@@ -3,37 +3,45 @@ import styled from 'styled-components';
 
 const FooterContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
-  border: 1px solid red;
+  justify-content: flex-start;
+  background: #515959;
 `;
 
 const Explore = styled.div`
   display: flex;
   height: 100%;
-  background: black;
   color: white;
+  margin-left: 8%;
+  padding: 20px;
+  width: 5%;
+  justify-content: center;
 `;
 
 const ActionDescription = styled.div`
   display: flex;
   height: 100%;
-  background: grey;
-  color: black;
+  background: #dcdcdc;
+  color: #505858;
+  padding: 20px;
+  width: 45%;
+  justify-content: center;
 `;
 
 const ActionsContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: 100%;
-  background: black;
+  margin-right: 5%;
+  padding: 20px;
 `;
 
 const Action = styled.div`
   display: flex;
   height: 100%;
-  background: black;
   color: white;
+  margin-right: 15px;
 `;
 
 
@@ -46,7 +54,7 @@ class Footer extends Component {
       <FooterContainer>
         <Explore>Explore</Explore>
         <ActionDescription>
-          {currentRoom.messages} {currentRoom.cooldown}
+          You have flown south. Flight bonus: -10% CD. Wise bonus: -50% CD.
         </ActionDescription>
         <ActionsContainer>
           <Action>N</Action>

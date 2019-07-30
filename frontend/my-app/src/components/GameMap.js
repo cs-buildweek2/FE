@@ -7,7 +7,6 @@ const MapContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  border: 1px solid red;
   width: 1200px;
   height: 900px;
   background-color: white;
