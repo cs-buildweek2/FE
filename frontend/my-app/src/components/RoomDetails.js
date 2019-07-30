@@ -60,8 +60,10 @@ const Description = styled.div`
 class RoomDetails extends Component {
   render() {
     // let {room} = this.props;
-    const { room_id, title, description,players, item, exits, cooldown, errors, messages } = this.props.curRoom;
-    console.log(exits)
+    const { room_id, title, description,players, items, exits, cooldown, errors, messages } = this.props.curRoom;
+    console.log(messages)
+    console.log(items)
+    console.log(title)
     // let items = room.items;
     // let itemDisplayText = 'There are no items in this room.';
     // if(items.length !== 0){
@@ -81,17 +83,17 @@ class RoomDetails extends Component {
         <IDContainer>
         <p>Your Room id: <RoomID>{room_id}</RoomID> </p>
         <Title>{title}</Title>
-          {/* <RoomCoordinates>room.coords</RoomCoordinates> */}
+        <h3> Message: </h3>
+        <Description>{messages}</Description>
         </IDContainer>
         <DetailsContainer>
           <Item>
-            {/* <Title>Mt. Holloway</Title> */}
             <Title>About</Title>
             <Description>{description}</Description>
           </Item>
           <Item>
-            <Title>Items</Title>
-            <Description>{item} </Description>
+            <Title>Items:</Title>
+            <Description>{items} </Description>
           </Item>
           <Item>
             <Title>Players: </Title>

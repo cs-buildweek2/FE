@@ -29,12 +29,14 @@ class App extends Component {
       graph : {},
       curRoom : {},
       player: {},
+      currentRoomMapIndex: 1830,
+      treasure: {},
     };
   }
   componentDidMount(){
-    console.log("Hello");  
+    // console.log("Hello");  
     this.getCurrentinfo();   
-    console.log(localStorage.getItem('map')); 
+    // console.log(localStorage.getItem('map')); 
   }
 ////////////////////////////////////////////////////
   getCurrentinfo = ()=> {
@@ -44,12 +46,28 @@ class App extends Component {
         .then( res =>{
           this.setState({curRoom : res.data})
           console.log(res.data)
+          if(res.data.items.length){
+            this.collectTreasure();
+          } else{
+            console.log("There no item to collect");
+          }
         })
         .catch(error => console.log(error));
     }
     catch(error){
       console.error(error);
     }
+  }
+  /////////////////////////////////////////////////////
+  collectTreasure = ()=>{
+    console.log("Collecting treasure: ")
+    let treasureName = { "name":"treasure" }
+    axios
+    .post(`${URL}/take/`, treasureName, config)
+            .then( res => {
+              this.setState({treasure: res.data.items})
+              console.log(this.state.treasure)
+            })
   }
 ////////////////////////////////////////////////////
 makingGraph = (id, coords, exits) => {
@@ -70,21 +88,83 @@ makingGraph = (id, coords, exits) => {
 ////////////////////////////////////////////////////
 direction= (dir)=> {
   let movement = { 'direction': dir }
-  try{
     axios
+      .post(`${URL}/move`, movement , config)
+      .then(res => {
+        console.log(res)
+        const { room_id, coordinates, exits } = res.data;
+        let graph = this.makingGraph(room_id, coordinates, exits)
+
+        this.setState({ curRoom: res.data, graph: graph });
+      })
+      .catch(error => console.log(error));
+    };
+
+////////////////////////////////////////////////////
+autoExploring(time, dir) {
+  console.log('Should be waiting.....')
+  let movement = { 'direction': dir }
+  axios
     .post(`${URL}/move`, movement , config)
     .then(res => {
       const { room_id, coordinates, exits } = res.data;
       let graph = this.makingGraph(room_id, coordinates, exits)
-      this.setState({currRoom: res.data, graph: graph });
+      this.setState({ curRoom: res.data, graph:graph });
+      time();
     })
     .catch(error => console.log(error));
-  }catch(error){ console.log(error)}
+  }; 
+  /////////////////////////////////////////////////////
+   inverseDir = (dir) => {
+    if (dir === 'n'){
+      return 's'
+    }
+    else if (dir === 's'){
+      return 'n'
+    }
+    else if (dir === 'e'){
+      return 'w'
+    }
+    else if (dir === 'w'){
+      return 'e'
+    }
+  };
+  autoTraversal = async() =>{
+    let wait = (time) => new Promise(resolve => setTimeout(resolve, time));
+    console.log('waiting......', )
+    let move = (dir) => new Promise(resolve => this.autoExploring(resolve, dir));
 
-}
+    let traversalPath = [];
+    let backtrackPath = [];
+    let visitedRooms = {};
+   
+    visitedRooms[this.state.curRoom.room_id] = this.state.curRoom.exits;
 
+    while (Object.keys(visitedRooms).length < 500) {
+      if (!(this.state.curRoom.room_id in visitedRooms)) {
+        visitedRooms[this.state.curRoom.room_id] = this.state.curRoom.exits;
 
-////////////////////////////////////////////////////
+        let last_backtrack_val = backtrackPath[backtrackPath.length-1]
+        let last_backtrack_val_index = visitedRooms[this.state.curRoom.room_id].indexOf(last_backtrack_val)
+        delete visitedRooms[this.state.curRoom.room_id].splice(last_backtrack_val_index, 1);
+      }
+      else if (visitedRooms[this.state.curRoom.room_id].length === 0 && backtrackPath.length > 0 ) {
+        let backtrackDir = backtrackPath.pop();
+        traversalPath.push(backtrackDir);
+        await wait(this.state.curRoom.cooldown * 2000);
+        await move(backtrackDir);
+      }
+      else {
+        let moveDir = visitedRooms[this.state.curRoom.room_id].shift()
+        traversalPath.push(moveDir);
+        backtrackPath.push(this.inverseDir(moveDir));
+        await wait(this.state.curRoom.cooldown * 2000);
+        await move(moveDir);
+      };
+    };  
+
+  };
+
   render() {
     let {map, currentRoom, currentPlayer, curRoom} = this.state
     let currentRoomMapIndex = currentRoomCoordsToIndex(this.state.currentRoom.coordinates);
@@ -93,9 +173,10 @@ direction= (dir)=> {
       <AppContainer>
         <Header />
         <Body map={map} currentRoomMapIndex={currentRoomMapIndex} curRoom= {curRoom} currentRoom={currentRoom} currentPlayer={currentPlayer} />
-        <Footer direction={this.direction} currentRoom={currentRoom} />
+        <Footer autoTraversal = {this.autoTraversal} direction={this.direction} currentRoom={currentRoom} />
       </AppContainer>
     );
   }
 }
+
 export default App;

@@ -48,11 +48,11 @@ const Action = styled.div`
 class Footer extends Component {
   
   render() {
-    let {curRoom, direction} = this.props
+    let {direction, autoTraversal} = this.props
     //You have flown south. Flight bonus: -10% CD. Wise ExplorerL -50% CD.
     return (
       <FooterContainer>
-        <Explore>Explore</Explore>
+        <Explore> <button onClick={() => autoTraversal()} > Auto Explore </button> </Explore>
         
         <ActionsContainer>
           <Action><button onClick={() => direction('n')} > N</button> </Action>
