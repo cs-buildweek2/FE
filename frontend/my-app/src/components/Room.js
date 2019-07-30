@@ -28,7 +28,7 @@ const RoomCell = styled.div`
 
 class Room extends Component {
   render() {
-    let {displayState, currentRoomMapIndex, index} = this.props
+    let {displayState, currentRoomMapIndex, index, validMoveLabels} = this.props
     let displayValue = ' ';
     if(displayState==='white'){
       displayValue = 'x';
@@ -36,6 +36,9 @@ class Room extends Component {
       if(displayState==='grey'){
         displayValue = '?';
       }
+    }
+    if(validMoveLabels[index]){
+      displayValue = validMoveLabels[index]
     }
     let isCurrentRoom = false;
     if(currentRoomMapIndex === index){
