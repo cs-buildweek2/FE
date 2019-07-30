@@ -68,7 +68,7 @@ const Value = styled.div`
 
 class PlayerDetails extends Component {
   render() {
-    //let {player} = this.props;
+    let {player} = this.props;
     return (
       <PlayerDetailsContainer>
         <TopContainer>

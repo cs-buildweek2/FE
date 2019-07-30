@@ -22,13 +22,14 @@ class Body extends Component {
   render() {
     console.log('Body')
     console.log(this.props)
-    let {map, currentRoom, currentPlayer} = this.props
+    let {map, currentRoom, currentPlayer, curRoom} = this.props
+
     return (
       <BodyContainer>
           <GameMap gameMap={map} />
           <BodyRightContainer>
-            <RoomDetails room={currentRoom} />
-            <PlayerDetails player={currentPlayer} />
+            <RoomDetails room={currentRoom} curRoom={curRoom} />
+            <PlayerDetails player={curRoom.players} />
           </BodyRightContainer>
       </BodyContainer>
     );
