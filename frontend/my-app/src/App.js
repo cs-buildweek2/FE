@@ -77,7 +77,7 @@ direction= (dir)=> {
     .then(res => {
       const { room_id, coordinates, exits } = res.data;
       let graph = this.makingGraph(room_id, coordinates, exits)
-      this.setState({currRoom: res.data, graph });
+      this.setState({currRoom: res.data, graph: graph });
     })
     .catch(error => console.log(error));
   }catch(error){ console.log(error)}
@@ -92,12 +92,10 @@ direction= (dir)=> {
     return (
       <AppContainer>
         <Header />
-        <Body map={map} currentRoomMapIndex={currentRoomMapIndex} curRoom= {curRoom} map={map} currentRoom={currentRoom} currentPlayer={currentPlayer} />
+        <Body map={map} currentRoomMapIndex={currentRoomMapIndex} curRoom= {curRoom} currentRoom={currentRoom} currentPlayer={currentPlayer} />
         <Footer direction={this.direction} currentRoom={currentRoom} />
       </AppContainer>
     );
   }
 }
-
-
 export default App;
