@@ -33,7 +33,8 @@ class App extends Component {
   }
   componentDidMount(){
     console.log("Hello");  
-    this.getCurrentinfo();
+    this.getCurrentinfo();   
+    console.log(localStorage.getItem('map')); 
   }
 ////////////////////////////////////////////////////
   getCurrentinfo = ()=> {
@@ -51,35 +52,38 @@ class App extends Component {
     }
   }
 ////////////////////////////////////////////////////
-direction(dir) {
+makingGraph = (id, coords, exits) => {
+  let graph = Object.assign({}, this.state.graph);
+  if (!this.state.graph[id]) {
+    let map = [];
+    let roomExits = {};
+    map.push(coords);
+    exits.forEach(exit => {roomExits[exit] = '?'});
+    map.push(roomExits);
+    graph = { ...graph, [id]: map};
+  };
+  localStorage.setItem('map', JSON.stringify(graph));
+  console.log("the graph view:");
+  console.log(this.state.graph);
+  return graph; 
+};
+////////////////////////////////////////////////////
+direction= (dir)=> {
   let movement = { 'direction': dir }
   try{
     axios
     .post(`${URL}/move`, movement , config)
     .then(res => {
       const { room_id, coordinates, exits } = res.data;
-      let graph = this.Graph(room_id, coordinates, exits)
-      this.setState({currRoom: res.data, graph });
+      let graph = this.makingGraph(room_id, coordinates, exits)
+      this.setState({currRoom: res.data, graph: graph });
     })
     .catch(error => console.log(error));
   }catch(error){ console.log(error)}
 
 }
 
-////////////////////////////////////////////////////
-  Graph = (id, coords, exits) => {
-    let graph = Object.assign({}, this.state.graph);
-    if (!this.state.graph[id]) {
-      let map = [];
-      let roomExits = {};
-      map.push(coords);
-      exits.forEach(exit => {roomExits[exit] = '?'});
-      map.push(roomExits);
-      graph = { ...graph, [id]: map};
-    };
-    localStorage.setItem('map', JSON.stringify(graph));
-    return graph; 
-  };
+
 ////////////////////////////////////////////////////
   render() {
     let {map, currentRoom, currentPlayer, curRoom} = this.state
@@ -88,8 +92,8 @@ direction(dir) {
     return (
       <AppContainer>
         <Header />
-        <Body map={map} currentRoomMapIndex={currentRoomMapIndex} curRoom= {curRoom} map={map} currentRoom={currentRoom} currentPlayer={currentPlayer} />
-        <Footer currentRoom={currentRoom} />
+        <Body map={map} currentRoomMapIndex={currentRoomMapIndex} curRoom= {curRoom} currentRoom={currentRoom} currentPlayer={currentPlayer} />
+        <Footer direction={this.direction} currentRoom={currentRoom} />
       </AppContainer>
     );
   }

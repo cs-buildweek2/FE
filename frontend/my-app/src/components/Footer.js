@@ -48,23 +48,24 @@ const Action = styled.div`
 class Footer extends Component {
   
   render() {
-    let {currentRoom} = this.props
+    let {curRoom, direction} = this.props
     //You have flown south. Flight bonus: -10% CD. Wise ExplorerL -50% CD.
     return (
       <FooterContainer>
         <Explore>Explore</Explore>
-        <ActionDescription>
-          You have flown south. Flight bonus: -10% CD. Wise bonus: -50% CD.
-        </ActionDescription>
+        
         <ActionsContainer>
-          <Action>N</Action>
-          <Action>S</Action>
-          <Action>W</Action>
-          <Action>E</Action>
+          <Action><button onClick={() => direction('n')} > N</button> </Action>
+          <Action><button onClick={() => direction('s')} > S</button> </Action>
+          <Action><button onClick={() => direction('e')} > E</button> </Action>
+          <Action><button onClick={() => direction('w')} > W</button> </Action>
           <Action>Store</Action>
           <Action>$</Action>
           <Action>Drop</Action>
         </ActionsContainer>
+        <ActionDescription>
+          You have flown south. Flight bonus: -10% CD. Wise bonus: -50% CD.
+        </ActionDescription> 
       </FooterContainer>
     );
   }
