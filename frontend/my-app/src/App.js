@@ -21,17 +21,18 @@ class App extends Component {
       map: initTestMap(),
       players: [],
       currentRoom: initTestCurrentRoom(),
-      currentPlayer: initTestCurrentPlayer()
+      currentPlayer: initTestCurrentPlayer(),
+      currentRoomMapIndex: 1830,
     };
   }
 
   render() {
-    let {map, currentRoom, currentPlayer} = this.state
+    let {map, currentRoom, currentPlayer, currentRoomMapIndex} = this.state
     console.log('**app.js**')
     return (
       <AppContainer>
         <Header />
-        <Body map={map} currentRoom={currentRoom} currentPlayer={currentPlayer} />
+        <Body map={map} currentRoomMapIndex={currentRoomMapIndex} currentPlayer={currentPlayer} currentRoom={currentRoom} />
         <Footer currentRoom={currentRoom} />
       </AppContainer>
     );

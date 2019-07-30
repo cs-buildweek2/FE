@@ -9,7 +9,7 @@ const MapContainer = styled.div`
   flex-wrap: wrap;
   width: 1200px;
   height: 900px;
-  background-color: white;
+  background-color: black;
 `;
 
 //room counter will used fixed positioning to overlay on map (top right)
@@ -20,12 +20,12 @@ const MapContainer = styled.div`
 class GameMap extends Component {
   
   render() {
-    let {gameMap, room, index} = this.props
+    let {gameMap, currentRoomMapIndex} = this.props
     console.log('GameMap')
     return (
       <MapContainer>
         {gameMap.map((room, index) => (
-          <Room gameMap={gameMap} room={room} index={index} displayState={getRoomDisplayState(gameMap, index, getAdjacentRooms(gameMap,index))} />
+          <Room index={index} displayState={getRoomDisplayState(gameMap, index, getAdjacentRooms(gameMap,index))} currentRoomMapIndex={currentRoomMapIndex}/>
         ))}
       </MapContainer>
     );

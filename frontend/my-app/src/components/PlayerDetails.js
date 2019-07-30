@@ -6,6 +6,7 @@ const PlayerDetailsContainer = styled.div`
   flex-direction: column;
   width: 100%;
   background: #7dccbe;
+  padding-top: 20px;
 `;
 
 const TopContainer = styled.div`
