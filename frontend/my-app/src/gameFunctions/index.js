@@ -61,34 +61,34 @@ export function getAdjacentRooms(gameMap, index){
 export function getRoomDisplayState(gameMap, index, nesw){
   let room  = gameMap[index]
   if(room!==null){
-    return 'x'
+    return 'white' //x
   }else{
     //north
     if(nesw[0] != null){
       if(nesw[0].exits.indexOf('s') !== -1){
-        return '?'
+        return 'grey' //?
       }
     }
     //east
     if(nesw[1] != null){
       if(nesw[1].exits.indexOf('w') !== -1){
-        return '?'
+        return 'grey'
       }
     }
     //south
     if(nesw[2] != null){
       if(nesw[2].exits.indexOf('n') !== -1){
-        return '?'
+        return 'grey'
       }
     }
     //west
     if(nesw[3] != null){
       if(nesw[3].exits.indexOf('e') !== -1){
-        return '?'
+        return 'grey'
       }
     }
   }
-  return ' '
+  return 'black' //' '
 }
 
 export function initTestMap(){

@@ -13,7 +13,8 @@ const IDContainer = styled.div`
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  padding: 5px 0px;
+  padding: 10px 0px;
+  padding-left: 20px;
 `;
 
 const RoomID = styled.div`
@@ -23,13 +24,14 @@ const RoomID = styled.div`
 
 const RoomCoordinates = styled.div`
   display: flex;
-  padding-right: 20px;
+  padding-right: 50px;
 `;
 
 const DetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-left: 20px;
 `;
 
 const Item = styled.div`
