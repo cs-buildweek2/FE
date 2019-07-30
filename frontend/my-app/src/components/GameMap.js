@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Room from './Room';
-import { getAdjacentRooms, getRoomDisplayState} from '../gameFunctions/';
+import { getAdjacentRooms, getRoomDisplayState, validAdjacentRooms } from '../gameFunctions/';
 
 const MapContainer = styled.div`
   display: flex;
@@ -21,11 +21,13 @@ class GameMap extends Component {
   
   render() {
     let {gameMap, currentRoomMapIndex} = this.props
+    let validMoveLabels = validAdjacentRooms(gameMap, currentRoomMapIndex)
+    console.log(validMoveLabels)
     console.log('GameMap')
     return (
       <MapContainer>
         {gameMap.map((room, index) => (
-          <Room index={index} displayState={getRoomDisplayState(gameMap, index, getAdjacentRooms(gameMap,index))} currentRoomMapIndex={currentRoomMapIndex}/>
+          <Room index={index} displayState={getRoomDisplayState(gameMap, index, getAdjacentRooms(gameMap,index))} currentRoomMapIndex={currentRoomMapIndex} validMoveLabels={validMoveLabels} />
         ))}
       </MapContainer>
     );

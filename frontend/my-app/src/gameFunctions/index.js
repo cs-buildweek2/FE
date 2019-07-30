@@ -5,6 +5,18 @@ let maxColValue = 90
 let numRows = maxRowValue-minRowValue
 let numCols = maxColValue-minColValue
 
+export function currentRoomCoordsToIndex(coords){
+  let {x,y} = convertCoordStringToNums(coords);
+  return convertXYtoArrayIndex(x,y)
+}
+
+export function convertCoordStringToNums(coords){
+  let s = coords.split(',');
+  let x = parseInt(s[0].slice(1));
+  let y = parseInt(s[1].slice(0,s[1].length-1));
+  return {x,y}
+}
+
 export function convertXYtoArrayIndex(x,y){
   //map[0] = (30,90)
   //map[3599] = (90,30)
@@ -56,6 +68,35 @@ export function getAdjacentRooms(gameMap, index){
   }
   
   return nesw
+}
+
+export function validAdjacentRooms(gameMap, index){
+  console.log('---------')
+  console.log('index: ' + index)
+  let coords = convertIndextoXY(index);
+  let currX = coords.x
+  let currY = coords.y
+  let exits = gameMap[index].exits
+  let movementOptions = {}
+
+  for(let i = 0; i < exits.length; i++){
+    var x = currX
+    var y = currY
+    if(exits[i]==="n"){
+      y = currY+1
+    }else if(exits[i]==="s"){
+      y = currY-1
+    }else if(exits[i]==="e"){
+      x = currX + 1
+    }else if(exits[i]==="w"){
+      x = currX -1 
+    }
+    movementOptions[convertXYtoArrayIndex(x,y)] = exits[i]
+  }
+  
+  console.log('-------')
+  console.log(movementOptions)
+  return movementOptions
 }
 
 export function getRoomDisplayState(gameMap, index, nesw){

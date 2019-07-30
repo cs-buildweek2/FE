@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import Header from './components/Header';
 import Body from './components/Body';
 import Footer from './components/Footer';
-import { initTestMap ,initTestCurrentRoom , initTestCurrentPlayer } from './gameFunctions/';
+import { initTestMap ,initTestCurrentRoom , initTestCurrentPlayer, currentRoomCoordsToIndex } from './gameFunctions/';
 import './App.css';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -29,7 +29,6 @@ class App extends Component {
       graph : {},
       curRoom : {},
       player: {},
-      currentRoomMapIndex: 1830,
     };
   }
   componentDidMount(){
@@ -83,7 +82,8 @@ direction(dir) {
   };
 ////////////////////////////////////////////////////
   render() {
-    let {map, currentRoom, currentRoomMapIndex, currentPlayer, curRoom} = this.state
+    let {map, currentRoom, currentPlayer, curRoom} = this.state
+    let currentRoomMapIndex = currentRoomCoordsToIndex(this.state.currentRoom.coordinates);
     console.log('**app.js**')
     return (
       <AppContainer>

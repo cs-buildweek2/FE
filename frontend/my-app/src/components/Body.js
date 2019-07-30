@@ -25,7 +25,7 @@ class Body extends Component {
     let {map, currentRoom, currentPlayer, currentRoomMapIndex, curRoom} = this.props
     return (
       <BodyContainer>
-          <GameMap gameMap={map} currentRoom={currentRoom} currentRoomMapIndex={currentRoomMapIndex} />
+          <GameMap gameMap={map} currentRoomMapIndex={currentRoomMapIndex} />
           <BodyRightContainer>
             <RoomDetails room={currentRoom} curRoom={curRoom} />
             <PlayerDetails player={curRoom.players} />
