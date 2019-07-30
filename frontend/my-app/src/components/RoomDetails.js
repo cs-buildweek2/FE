@@ -4,8 +4,11 @@ import styled from 'styled-components';
 const RoomDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   width: 100%;
   background: #d4e5e6;
+  padding: 10px;
+  margin: 0 auto;
 `;
 
 const IDContainer = styled.div`
@@ -56,41 +59,47 @@ const Description = styled.div`
 
 class RoomDetails extends Component {
   render() {
-    let {room} = this.props;
+    // let {room} = this.props;
+    const { room_id, title, description,players, item, exits, cooldown, errors, messages } = this.props.curRoom;
+    console.log(exits)
+    // let items = room.items;
+    // let itemDisplayText = 'There are no items in this room.';
+    // if(items.length !== 0){
+    //   itemDisplayText = items
+    // }
 
-    let items = room.items;
-    let itemDisplayText = 'There are no items in this room.';
-    if(items.length !== 0){
-      itemDisplayText = items
-    }
-
-    let players = room.players;
-    let playerDisplayText = 'There are no players in this room.';
-    if(players.length !== 0){
-      itemDisplayText = players
-    }
+    // let players = room.players;
+    // let playerDisplayText = 'There are no players in this room.';
+    // if(players.length !== 0){
+    //   itemDisplayText = players
+    // }
     //consider adding indicators if a present player is on your team 
     //note: UI-wise, we need a way to jump to current locaiton of any player on our team
 
     return (
       <RoomDetailsContainer>
         <IDContainer>
-          <RoomID>room.title</RoomID>
-          <RoomCoordinates>room.coords</RoomCoordinates>
+        <p>Your Room id: <RoomID>{room_id}</RoomID> </p>
+        <Title>{title}</Title>
+          {/* <RoomCoordinates>room.coords</RoomCoordinates> */}
         </IDContainer>
         <DetailsContainer>
           <Item>
-            <Title>Mt. Holloway</Title>
-            <Description>{room.description}</Description>
+            {/* <Title>Mt. Holloway</Title> */}
+            <Title>About</Title>
+            <Description>{description}</Description>
           </Item>
           <Item>
             <Title>Items</Title>
-            <Description>{itemDisplayText}</Description>
+            <Description>{item} </Description>
           </Item>
           <Item>
-            <Title>Players</Title>
-            <Description>{playerDisplayText}</Description>
+            <Title>Players: </Title>
+            <Description>{players}</Description>
           </Item>
+          <p>Cooldown time : <strong>{cooldown} seconds</strong> </p>
+          <p>Moving options:  <strong>{exits}</strong>.</p>
+
         </DetailsContainer>
       </RoomDetailsContainer>
     );
