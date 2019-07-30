@@ -3,67 +3,67 @@ import styled from 'styled-components';
 
 const PlayerDetailsContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
-  border: 1px solid red;
+  background: #7dccbe;
 `;
 
 const TopContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
-  border: 1px solid red;
+  justify-content: space-between;
+  padding: 5px 0px;
 `;
 
 const PlayerName = styled.div`
   display: flex;
-  border: 1px solid red;
+  padding-left: 20px;
+  font-weight: bold;
+  font-size: 20px;
 `;
 
 const PlayerNetworth = styled.div`
   display: flex;
-  border: 1px solid red;
+  padding-right: 20px;
 `;
 
 const BottomContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
-  border: 1px solid red;
 `;
 
 const LeftContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
-  border: 1px solid red;
 `;
 
 const RightContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
-  border: 1px solid red;
 `;
 
 const Item = styled.div`
   display: flex;
-  border: 1px solid red;
+  margin: 15px;
 `;
 
 const Item2 = styled.div`
   display: flex;
-  border: 1px solid red;
 `;
 
 const Title = styled.div`
   display: flex;
-  border: 1px solid red;
+  margin-right: 10px;
+  color: #3b3f3f;
 `;
 
 const Value = styled.div`
   display: flex;
-  border: 1px solid red;
+  color: #3b3f3f;
 `;
 
 class PlayerDetails extends Component {
@@ -78,21 +78,21 @@ class PlayerDetails extends Component {
         <BottomContainer>
           <LeftContainer>
             <Item>
-              <Title>Encumbrance</Title>
+              <Title>Encumbrance:</Title>
               <Value>1</Value>
             </Item>
             <Item>
-              <Title>Strength</Title>
+              <Title>Strength:</Title>
               <Value>10</Value>
             </Item>
-            <Item>s
-              <Title>Speed</Title>
+            <Item>
+              <Title>Speed:</Title>
               <Value>10</Value>
             </Item>
           </LeftContainer>
           <RightContainer>
             <Item2>
-              <Title>Inventory</Title>
+              <Title>Inventory:</Title>
               <Value>Flower</Value>
             </Item2>
           </RightContainer>

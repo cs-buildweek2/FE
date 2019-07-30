@@ -3,22 +3,38 @@ import styled from 'styled-components';
 
 const HeaderContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
-  border: 1px solid blue;
-  background: black;
+  background: #515959;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
 `;
 
 const PirateImage = styled.div`
   display: flex;
   height: 100%;
-  border: 1px solid yellow;
+  width: 5%;
 `;
 
 const Title = styled.div`
+  display: flex;
+  height: 100%;
+  width: 30%
+  color: white;
+  font-size: 42px;
 `;
 
 const HeaderToggle = styled.div`
+  display: flex;
+  height: 100%;
+  width: 5%;
+  color: white;
+  justify-content: space-between;
+`;
+
+const Item = styled.div`
+    font-size: 15px;
 `;
 
 class Header extends Component {
@@ -29,7 +45,10 @@ class Header extends Component {
       <HeaderContainer>
           <PirateImage />
           <Title>Lambda Treasure Hunt</Title>
-          <HeaderToggle>Map   About</HeaderToggle>
+          <HeaderToggle>
+            <Item>Map</Item>
+            <Item>About</Item>
+          </HeaderToggle>
       </HeaderContainer>
     );
   }

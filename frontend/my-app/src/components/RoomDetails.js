@@ -3,50 +3,53 @@ import styled from 'styled-components';
 
 const RoomDetailsContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  width: 20%;
-  border: 1px solid red;
+  flex-direction: column;
+  width: 100%;
+  background: #d4e5e6;
 `;
 
 const IDContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
-  border: 1px solid green;
+  justify-content: space-between;
+  padding: 5px 0px;
 `;
 
 const RoomID = styled.div`
   display: flex;
-  border: 1px solid red;
+  padding-left: 20px;
 `;
 
 const RoomCoordinates = styled.div`
   display: flex;
-  border: 1px solid red;
+  padding-right: 20px;
 `;
 
 const DetailsContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
-  border: 1px solid red;
 `;
 
 const Item = styled.div`
-  display: flex;
+  display: inline;
   width: 100%;
   flex-direction: row;
-  border: 1px solid red;
 `;
 
 const Title = styled.div`
   display: flex;
-  border: 1px solid red;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #3b3f3f;
 `;
 
 const Description = styled.div`
   display: flex;
-  border: 1px solid red;
+  margin-bottom: 20px;
+  color: #3b3f3f;
 `;
 
 class RoomDetails extends Component {
@@ -70,8 +73,8 @@ class RoomDetails extends Component {
     return (
       <RoomDetailsContainer>
         <IDContainer>
-          <RoomID>{room.title}</RoomID>
-          <RoomCoordinates>{room.coords}</RoomCoordinates>
+          <RoomID>room.title</RoomID>
+          <RoomCoordinates>room.coords</RoomCoordinates>
         </IDContainer>
         <DetailsContainer>
           <Item>
