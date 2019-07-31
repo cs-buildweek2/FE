@@ -1,7 +1,14 @@
+/*
 let minRowValue = 30
 let maxRowValue = 90
 let minColValue = 30
-let maxColValue = 90
+let maxColValue = 90*/
+
+let minRowValue = 45
+let maxRowValue = 75
+let minColValue = 45
+let maxColValue = 75
+
 let numRows = maxRowValue-minRowValue
 let numCols = maxColValue-minColValue
 
@@ -26,16 +33,16 @@ export function convertCoordStringToNums(coords){
 export function convertXYtoArrayIndex(x,y){
   //map[0] = (30,90)
   //map[3599] = (90,30)
-  let currentRow = -(y-90)
-  let currentCol = x-30
+  let currentRow = -(y-maxColValue)
+  let currentCol = x-minRowValue
   let index = currentRow*numRows + currentCol 
   return index
 }
 
 
 export function convertIndextoXY(index){
-  let x = index % numRows + 30
-  let y =  -Math.floor(index / numRows) + 90
+  let x = index % numRows + minRowValue
+  let y =  -Math.floor(index / numRows) + maxColValue
   return { x, y }
 }
 
@@ -144,7 +151,7 @@ export function getRoomDisplayState(gameMap, index, nesw){
 
 export function initTestMap(){
   let gameMap = []
-  for( let x = 0; x <3600; x++){
+  for( let x = 0; x <930; x++){
     gameMap[x] = null;
   }
 
