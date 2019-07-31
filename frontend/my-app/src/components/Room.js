@@ -31,14 +31,16 @@ class Room extends Component {
     let {displayState, currentRoomMapIndex, index, validMoveLabels} = this.props
     let displayValue = ' ';
     if(displayState==='white'){
-      displayValue = 'x';
+      displayValue = ' '; //previously 'x'
     }else{
       if(displayState==='grey'){
         displayValue = '?';
       }
     }
-    if(validMoveLabels[index]){
-      displayValue = validMoveLabels[index]
+    if(validMoveLabels !== null){
+      if(validMoveLabels[index]){
+        displayValue = validMoveLabels[index]
+      }
     }
     let isCurrentRoom = false;
     if(currentRoomMapIndex === index){

@@ -21,8 +21,10 @@ class GameMap extends Component {
   
   render() {
     let {gameMap, currentRoomMapIndex} = this.props
-    let validMoveLabels = validAdjacentRooms(gameMap, currentRoomMapIndex)
-    console.log(validMoveLabels)
+    let validMoveLabels = null
+    if(currentRoomMapIndex !== null){
+      validMoveLabels = validAdjacentRooms(gameMap, currentRoomMapIndex)
+    }
     console.log('GameMap')
     return (
       <MapContainer>
