@@ -47,9 +47,16 @@ class App extends Component {
           this.setState({curRoom : res.data})
           console.log(res.data)
           if(res.data.items.length){
+            console.log("Running collecting data function")
             this.collectTreasure();
           } else{
             console.log("There no item to collect");
+          }
+          if(res.data.title == "Shop"){
+            console.log("Running selling treasue function")
+            this.sellTreasure();
+          } else{
+            console.log("There no shop to sell");
           }
         })
         .catch(error => console.log(error));
@@ -61,15 +68,36 @@ class App extends Component {
   /////////////////////////////////////////////////////
   collectTreasure = ()=>{
     console.log("Collecting treasure: ")
-    let treasureName = { "name":"treasure" }
+    let treasureName = { 'name': 'treasure'}
+    // try{
     axios
-    .post(`${URL}/take/`, treasureName, config)
-            .then( res => {
-              this.setState({treasure: res.data.items})
-              console.log(this.state.treasure)
-            })
+      .post(`${URL}/take`, treasureName, config)
+      .then( res => {
+          this.setState({treasure: res.data.items})
+          console.log("Trying to collect treasure" + res.data);
+          console.log(this.state.treasure)
+        })
+      .catch(error => console.log(error));
+    // }catch(error){
+      // console.log("Could not collect item");
+    // }
   }
 ////////////////////////////////////////////////////
+sellTreasure = ()=>{
+  console.log("Collecting treasure: ")
+  let treasureName = { 'name': 'treasure'}
+  // try{
+  axios
+    .post(`${URL}/sell`, treasureName, config)
+    .then( res => {
+        console.log("Just sold a treasure")
+      })
+    .catch(error => console.log(error));
+  // }catch(error){
+    // console.log("Could not sell item");
+  // }
+}
+///////////////////////////////////////////////////
 makingGraph = (id, coords, exits) => {
   let graph = Object.assign({}, this.state.graph);
   if (!this.state.graph[id]) {
@@ -107,12 +135,24 @@ autoExploring(time, dir) {
   axios
     .post(`${URL}/move`, movement , config)
     .then(res => {
+      if(res.data.items.length){
+        console.log("Running collecting data function from auto")
+        this.collectTreasure();
+      } else{
+        console.log("There no item to collect");
+      }
+      if(res.data.title == "Shop"){
+        console.log("Running selling treasue function from auto")
+        this.sellTreasure();
+      } else{
+        console.log("There no shop to sell");
+      }
       const { room_id, coordinates, exits } = res.data;
       let graph = this.makingGraph(room_id, coordinates, exits)
       this.setState({ curRoom: res.data, graph:graph });
       time();
     })
-    .catch(error => console.log(error));
+    .catch(error => console.log("Auto exploring error" + error));
   }; 
   /////////////////////////////////////////////////////
    inverseDir = (dir) => {
