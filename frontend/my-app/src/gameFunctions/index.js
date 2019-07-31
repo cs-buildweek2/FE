@@ -71,8 +71,6 @@ export function getAdjacentRooms(gameMap, index){
 }
 
 export function validAdjacentRooms(gameMap, index){
-  console.log('---------')
-  console.log('index: ' + index)
   let coords = convertIndextoXY(index);
   let currX = coords.x
   let currY = coords.y
@@ -93,9 +91,6 @@ export function validAdjacentRooms(gameMap, index){
     }
     movementOptions[convertXYtoArrayIndex(x,y)] = exits[i]
   }
-  
-  console.log('-------')
-  console.log(movementOptions)
   return movementOptions
 }
 
