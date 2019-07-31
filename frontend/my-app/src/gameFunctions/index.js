@@ -5,6 +5,12 @@ let maxColValue = 90
 let numRows = maxRowValue-minRowValue
 let numCols = maxColValue-minColValue
 
+export function addRoomToMap(gameMap, room){
+  let index = currentRoomCoordsToIndex(room.coordinates)
+  gameMap[index] = room
+  return gameMap
+}
+
 export function currentRoomCoordsToIndex(coords){
   let {x,y} = convertCoordStringToNums(coords);
   return convertXYtoArrayIndex(x,y)
@@ -132,37 +138,30 @@ export function initTestMap(){
   for( let x = 0; x <3600; x++){
     gameMap[x] = null;
   }
-  let index = convertXYtoArrayIndex(60,60);
-  let room6060 = {
-    "room_id": 0,
-    "title": "Room 0",
-    "description": "You are standing in an empty room.",
-    "coordinates": "(60,60)",
-    "players": [],
-    "items": ["small treasure"],
-    "exits": ["n", "s", "e", "w"],
-    "cooldown": 60.0,
-    "errors": [],
-    "messages": []
-  }
-  gameMap[index] = room6060;
 
-  index = convertXYtoArrayIndex(60,61)
-  let room6061 = {
-    "room_id": 10,
-    "title": "A misty room",
-    "description": "You are standing on grass and surrounded by a dense mist. You can barely make out the exits in any direction.",
-    "coordinates": "(60,61)",
-    "elevation": 0,
-    "terrain": "NORMAL",
-    "players": ["player82", "player146"],
-    "items": [],
-    "exits": ["n", "s", "w"],
-    "cooldown": 60.0,
-    "errors": [],
-    "messages": ["You have walked north."]
+  console.log('initTestMap()')
+  //{"76":["(59,65)",{"n":"?","e":"?","w":"?"}],"83":["(59,66)",{"s":"?","e":"?","w":"?"}],"125":["(58,66)",{"n":"?","e":"?","w":"?"}],
+  //"130":["(60,66)",{"w":"?"}],"165":["(58,67)",{"n":"?","s":"?","w":"?"}],"203":["(58,68)",{"n":"?","s":"?","e":"?"}],"268":["(58,69)",{"s":"?","e":"?","w":"?"}],"299":["(59,68)",{"e":"?","w":"?"}],"311":["(60,68)",{"w":"?"}],"312":["(57,69)",{"n":"?","e":"?"}],"411":["(59,69)",{"w":"?"}]}
+  
+  let localStorageMap = JSON.parse(localStorage.getItem('map'))
+  let coords = '', index = -1, exits = [], room = {}, roomExits = {}, roomToAdd = {}
+  console.log('localStorageMap')
+  console.log(localStorageMap)
+  for (var roomKey in localStorageMap) {
+    room = localStorageMap[roomKey]
+    coords = room[0]
+    index = currentRoomCoordsToIndex(coords)
+    roomExits = room[1]
+    exits = []
+    for (var exitKey in roomExits){
+      exits.push(exitKey)
+    }
+    roomToAdd = {
+      coordinates: coords,
+      exits: exits
+    }
+    addRoomToMap(gameMap, roomToAdd)
   }
-  gameMap[index] = room6061;
   return gameMap;
 }
 
