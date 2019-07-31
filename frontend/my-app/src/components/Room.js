@@ -32,10 +32,12 @@ class Room extends Component {
     let displayValue = ' ';
     if(displayState==='white'){
       displayValue = ' '; //previously 'x'
-    }else{
-      if(displayState==='grey'){
-        displayValue = '?';
-      }
+    }else if(displayState==='grey'){
+        //displayValue = '?';
+    }else if(displayState==='green'){
+      displayValue = '$'
+    }else if(displayState==='blue'){
+      displayValue = '@'
     }
     if(validMoveLabels !== null){
       if(validMoveLabels[index]){
