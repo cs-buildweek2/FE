@@ -6,12 +6,12 @@ import { initTestMap , currentRoomCoordsToIndex , addRoomToMap } from './gameFun
 import './App.css';
 import styled from 'styled-components';
 import axios from 'axios';
-
+// import { URL, config} from './components/env'
 ////////////////////////////////////////////////////
 const URL = "https://lambda-treasure-hunt.herokuapp.com/api/adv"
 const config = {
-  //headers: {Authorization: "Token 3d043586b25429e278eba26bfe1426267ecdf1f0"}
-  headers: {Authorization: "Token 07bc71474be560896f01e1b6e8202fd12628ead8"}
+  headers: {Authorization: "Token 3d043586b25429e278eba26bfe1426267ecdf1f0"}
+  // headers: {Authorization: "Token 07bc71474be560896f01e1b6e8202fd12628ead8"}
 }
 const AppContainer = styled.div`
   display: flex;
@@ -26,8 +26,6 @@ class App extends Component {
     this.state = {
       map: initTestMap(),
       players: [],
-      //currentRoom: initTestCurrentRoom(),
-      //currentPlayer: initTestCurrentPlayer(),
       graph : {},
       curRoom : {},
       player: {},
@@ -52,14 +50,16 @@ class App extends Component {
             };
           });
           if(res.data.items.length){
-            console.log("Running collecting data function")
-            this.collectTreasure();
+            setTimeout(()=> {
+              this.collectTreasure();
+            }, res.data.cooldown * 1001)
           }else{
             console.log("There no item to collect");
           }
           if(res.data.title == "Shop"){
-            console.log("Running selling treasue function")
-            this.sellTreasure();
+            setTimeout(()=> {
+              this.sellTreasure();
+            }, res.data.cooldown * 1001)
           } else{
             console.log("There no shop to sell");
           }
@@ -74,7 +74,6 @@ class App extends Component {
   collectTreasure = ()=>{
     console.log("Collecting treasure: ")
     let treasureName = { 'name': 'treasure'}
-    // try{
     axios
       .post(`${URL}/take`, treasureName, config)
       .then( res => {
@@ -83,24 +82,17 @@ class App extends Component {
           console.log(this.state.treasure)
         })
       .catch(error => console.log(error));
-    // }catch(error){
-      // console.log("Could not collect item");
-    // }
   }
 ////////////////////////////////////////////////////
 sellTreasure = ()=>{
   console.log("Collecting treasure: ")
   let treasureName = { 'name': 'treasure'}
-  // try{
   axios
     .post(`${URL}/sell`, treasureName, config)
     .then( res => {
         console.log("Just sold a treasure")
       })
     .catch(error => console.log(error));
-  // }catch(error){
-    // console.log("Could not sell item");
-  // }
 }
 ///////////////////////////////////////////////////
 makingGraph = (id, coords, exits) => {
@@ -128,8 +120,6 @@ direction= (dir)=> {
         const { room_id, coordinates, exits } = res.data;
         let graph = this.makingGraph(room_id, coordinates, exits)
 
-        //this.setState({ curRoom: res.data, graph: graph });
-
         this.setState(prevState => {
           return {
             ...prevState,
@@ -150,14 +140,16 @@ autoExploring(time, dir) {
     .post(`${URL}/move`, movement , config)
     .then(res => {
       if(res.data.items.length){
-        console.log("Running collecting data function from auto")
-        this.collectTreasure();
+        setTimeout(()=> {
+          this.collectTreasure();
+        }, res.data.cooldown * 1001)
       } else{
         console.log("There no item to collect");
       }
       if(res.data.title == "Shop"){
-        console.log("Running selling treasue function from auto")
-        this.sellTreasure();
+        setTimeout(()=> {
+          this.sellTreasure();
+        }, res.data.cooldown * 1001)
       } else{
         console.log("There no shop to sell");
       }
