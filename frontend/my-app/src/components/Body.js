@@ -21,8 +21,8 @@ class Body extends Component {
   
   render() {
     console.log('Body')
-    console.log(this.props)
     let {map, currentRoom, currentPlayer, currentRoomMapIndex, curRoom} = this.props
+    console.log(this.props)
     return (
       <BodyContainer>
           <GameMap gameMap={map} currentRoomMapIndex={currentRoomMapIndex} />
