@@ -63,7 +63,6 @@ class RoomDetails extends Component {
     const { room_id, title, description,players, items, exits, cooldown, errors, messages } = this.props.curRoom;
     console.log(messages)
     console.log(items)
-    console.log(title)
     // let items = room.items;
     // let itemDisplayText = 'There are no items in this room.';
     // if(items.length !== 0){
