@@ -4,12 +4,14 @@ import { getRoomDisplayState, getAdjacentRooms , convertIndextoXY} from '../game
 
 const RoomCell = styled.div`
   display: flex;
-  width: 20px;
-  height: 15px;
+  width: 19px;
+  height: 19px;
   color: black;
   font-size: 10px;
   overflow: visible;
   justify-content: center;
+  align-items: center;
+  margin: 0.5px
 
   border-radius: ${({color}) => 
     color === 'black' && '0%' ||
