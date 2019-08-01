@@ -3,12 +3,22 @@ import styled from 'styled-components';
 import Room from './Room';
 import { getAdjacentRooms, getRoomDisplayState, validAdjacentRooms } from '../gameFunctions/';
 
+/*
+  width: 20px;
+  height: 15px;
+  1200/20 = 
+  45,45 -> 74,74
+
+  30x30 = 900
+
+  3600
+ */
 const MapContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 1200px;
-  height: 900px;
+  width: 630px;
+  height: 660px;
   background-color: black;
 `;
 
@@ -29,7 +39,7 @@ class GameMap extends Component {
     return (
       <MapContainer>
         {gameMap.map((room, index) => (
-          <Room index={index} displayState={getRoomDisplayState(gameMap, index, getAdjacentRooms(gameMap,index))} currentRoomMapIndex={currentRoomMapIndex} validMoveLabels={validMoveLabels} />
+          <Room room={room} index={index} displayState={getRoomDisplayState(gameMap, index, getAdjacentRooms(gameMap, index))} currentRoomMapIndex={currentRoomMapIndex} validMoveLabels={validMoveLabels} />
         ))}
       </MapContainer>
     );

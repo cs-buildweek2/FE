@@ -28,7 +28,7 @@ class Body extends Component {
           <GameMap gameMap={map} currentRoomMapIndex={currentRoomMapIndex} />
           <BodyRightContainer>
             <RoomDetails room={currentRoom} curRoom={curRoom} />
-            <PlayerDetails player={curRoom.players} />
+            <PlayerDetails cooldown={curRoom.cooldown} player={curRoom.players} />
           </BodyRightContainer>
       </BodyContainer>
     );

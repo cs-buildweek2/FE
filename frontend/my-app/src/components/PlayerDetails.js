@@ -71,9 +71,9 @@ const Value = styled.div`
 
 const URL = "https://lambda-treasure-hunt.herokuapp.com/api/adv/status"
 const config = {
-  // headers: {Authorization: "Token 3d043586b25429e278eba26bfe1426267ecdf1f0"}
+    headers: {Authorization: "Token 3d043586b25429e278eba26bfe1426267ecdf1f0"}
   // headers: {Authorization: "Token 07bc71474be560896f01e1b6e8202fd12628ead8"}
-  headers: {Authorization: "Token 80bd0d5dc2befdd2bb01d014daeb9b1780c36cf2"}
+  // headers: {Authorization: "Token 80bd0d5dc2befdd2bb01d014daeb9b1780c36cf2"}
 }
 class PlayerDetails extends Component {
   constructor(){
@@ -91,14 +91,20 @@ class PlayerDetails extends Component {
       messages: []
     } 
   }
-  componentDidMount(){
+  // componentDidMount(){
+  //   let {cooldown} = this.props
+  //   setTimeout(()=> {
+  //   this.collectPlayerinfo();
+  //   }, cooldown* 1000 )
+  // }
+  firePlayerinfo = ()=>{
     let {cooldown} = this.props
     setTimeout(()=> {
-    this.collectPlayerinfo();
-    }, cooldown* 1000 )
+         this.collectPlayerinfo();
+         }, cooldown* 1002 )
   }
   collectPlayerinfo = () =>{
-
+    
     console.log("Collect playerinfo")
     try{
       axios
@@ -133,6 +139,7 @@ class PlayerDetails extends Component {
     let {name, cooldown, encumbrance, strength, speed, gold, inventory, status, errors, messages} = this.state
     return (
       <PlayerDetailsContainer>
+        <Title><button onClick= {this.firePlayerinfo}> Player Detail</button></Title>
         <TopContainer>
           <PlayerName>{name}</PlayerName>
           <PlayerNetworth>{gold}</PlayerNetworth>
