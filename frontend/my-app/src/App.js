@@ -76,6 +76,36 @@ class App extends Component {
       console.error(error);
     }
   }
+  ////////////////////////////////////////////////////
+  submitNewProof = ()=>{
+    console.log("Collecting treasure: ")
+    let newProof = { 'proof': '[new_proof]'}
+    axios
+      .post("https://lambda-treasure-hunt.herokuapp.com/api/bc/mine/", treasureName, config)
+      .then( res => {
+          // this.setState({: res.data.})
+          console.log(res.data)
+        })
+      .catch(error => console.log(error));
+  }
+  collectLambdaCoin = ()=>{
+    axios
+      .post(`https://lambda-treasure-hunt.herokuapp.com/api/bc/last_proof/`, config)
+      .then( res => {
+          // this.setState({res.data})
+          console.log(res.data)
+        })
+      .catch(error => console.log(error));
+  }
+  checkbalance = ()=>{
+    axios
+      .post(`https://lambda-treasure-hunt.herokuapp.com/api/bc/get_balance/`, config)
+      .then( res => {
+          // this.setState({res.data})
+          console.log(res.data)
+        })
+      .catch(error => console.log(error));
+  }
   /////////////////////////////////////////////////////
   collectTreasure = ()=>{
     console.log("Collecting treasure: ")
