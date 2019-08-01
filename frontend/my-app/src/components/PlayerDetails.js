@@ -69,12 +69,12 @@ const Value = styled.div`
   color: #3b3f3f;
 `;
 
-const URL = "https://lambda-treasure-hunt.herokuapp.com/api/adv/status"
-const config = {
-    headers: {Authorization: "Token 3d043586b25429e278eba26bfe1426267ecdf1f0"}
-  // headers: {Authorization: "Token 07bc71474be560896f01e1b6e8202fd12628ead8"}
-  // headers: {Authorization: "Token 80bd0d5dc2befdd2bb01d014daeb9b1780c36cf2"}
-}
+// const URL = "https://lambda-treasure-hunt.herokuapp.com/api/adv/status"
+// const config = {
+//     headers: {Authorization: "Token 3d043586b25429e278eba26bfe1426267ecdf1f0"}
+//   // headers: {Authorization: "Token 07bc71474be560896f01e1b6e8202fd12628ead8"}
+//   // headers: {Authorization: "Token 80bd0d5dc2befdd2bb01d014daeb9b1780c36cf2"}
+// }
 class PlayerDetails extends Component {
   constructor(){
     super();
@@ -97,44 +97,74 @@ class PlayerDetails extends Component {
   //   this.collectPlayerinfo();
   //   }, cooldown* 1000 )
   // }
+
+  collectPlayerinfo = async () => {
+    try {
+      const res = await axios({
+        method: 'post',
+        url: 'https://lambda-treasure-hunt.herokuapp.com/api/adv/status/',
+        headers: {
+          Authorization: 'Token 3d043586b25429e278eba26bfe1426267ecdf1f0'
+        }
+      });
+      console.log(res.data);
+
+      this.setState(prevState => ({
+        name: res.data.name,
+        cooldown: res.data.cooldown,
+        encumbrance: res.data.encumbrance,
+        strength: res.data.strength,
+        speed: res.data.speed,
+        gold: res.data.gold,
+        inventory: [...res.data.inventory],
+        status: [...res.data.status],
+        errors: [...res.data.errors]
+      }));
+    } catch (err) {
+      console.log('There was an error.');
+      console.dir(err);
+    }
+  };
+
+
   firePlayerinfo = ()=>{
     let {cooldown} = this.props
     setTimeout(()=> {
          this.collectPlayerinfo();
-         }, cooldown* 1002 )
+         }, (cooldown* 1002) )
   }
-  collectPlayerinfo = () =>{
+  // collectPlayerinfo = () =>{
     
-    console.log("Collect playerinfo")
-    try{
-      axios
-        .post(URL, config)
-        .then(res => {
+  //   console.log("Collect playerinfo")
+  //   try{
+  //     axios
+  //       .post(URL, config)
+  //       .then(res => {
           
-          console.log(res.data)
-          console.log("Collect playerinfo")
-          this.setState(prevstate => {
-            return{
-              ...prevstate,
-              name :res.data.name,
-              cooldown: res.data.cooldown,
-              encumbrance: res.data.encumbrance, 
-              strength: res.data.strength,  
-              speed: res.data.speed,  
-              gold: res.data.gold,
-              inventory: res.data.inventory,
-              status: res.data.status,
-              errors:  res.data.errors,
-              messages: res.data.messages
-            };
-          })
-        })
-        .catch(error=> console.log(error))
-    }catch(error){
-      console.error(error);
-    }
+  //         console.log(res.data)
+  //         console.log("Collect playerinfo")
+  //         this.setState(prevstate => {
+  //           return{
+  //             ...prevstate,
+  //             name :res.data.name,
+  //             cooldown: res.data.cooldown,
+  //             encumbrance: res.data.encumbrance, 
+  //             strength: res.data.strength,  
+  //             speed: res.data.speed,  
+  //             gold: res.data.gold,
+  //             inventory: res.data.inventory,
+  //             status: res.data.status,
+  //             errors:  res.data.errors,
+  //             messages: res.data.messages
+  //           };
+  //         })
+  //       })
+  //       .catch(error=> console.log(error))
+  //   }catch(error){
+  //     console.error(error);
+  //   }
 
-  }
+  // }
   render() {
     let {name, cooldown, encumbrance, strength, speed, gold, inventory, status, errors, messages} = this.state
     return (
