@@ -17,8 +17,8 @@ const MapContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 600px;
-  height: 600px;
+  width: 630px;
+  height: 660px;
   background-color: black;
 `;
 
@@ -39,7 +39,7 @@ class GameMap extends Component {
     return (
       <MapContainer>
         {gameMap.map((room, index) => (
-          <Room index={index} displayState={getRoomDisplayState(gameMap, index, getAdjacentRooms(gameMap,index))} currentRoomMapIndex={currentRoomMapIndex} validMoveLabels={validMoveLabels} />
+          <Room room={room} index={index} displayState={getRoomDisplayState(gameMap, index, getAdjacentRooms(gameMap, index))} currentRoomMapIndex={currentRoomMapIndex} validMoveLabels={validMoveLabels} />
         ))}
       </MapContainer>
     );
