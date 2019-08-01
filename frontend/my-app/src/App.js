@@ -10,8 +10,9 @@ import axios from 'axios';
 ////////////////////////////////////////////////////
 const URL = "https://lambda-treasure-hunt.herokuapp.com/api/adv"
 const config = {
-  headers: {Authorization: "Token 3d043586b25429e278eba26bfe1426267ecdf1f0"}
+    headers: {Authorization: "Token 3d043586b25429e278eba26bfe1426267ecdf1f0"}
   // headers: {Authorization: "Token 07bc71474be560896f01e1b6e8202fd12628ead8"}
+  // headers: {Authorization: "Token 80bd0d5dc2befdd2bb01d014daeb9b1780c36cf2"}
 }
 const AppContainer = styled.div`
   display: flex;
@@ -53,7 +54,12 @@ class App extends Component {
             setTimeout(()=> {
               this.collectTreasure();
             }, res.data.cooldown * 1001)
-          }else{
+          }else if(res.data.title == "Pirate Ry's" || res.data.room_id == 467){
+            setTimeout(()=> {
+              this.nameChanger();
+            }, res.data.cooldown * 1001)
+          }
+          else{
             console.log("There no item to collect");
           }
           if(res.data.title == "Shop"){
@@ -69,6 +75,36 @@ class App extends Component {
     catch(error){
       console.error(error);
     }
+  }
+  ////////////////////////////////////////////////////
+  submitNewProof = ()=>{
+    console.log("Collecting treasure: ")
+    let newProof = { 'proof': '[new_proof]'}
+    axios
+      .post("https://lambda-treasure-hunt.herokuapp.com/api/bc/mine/", treasureName, config)
+      .then( res => {
+          // this.setState({: res.data.})
+          console.log(res.data)
+        })
+      .catch(error => console.log(error));
+  }
+  collectLambdaCoin = ()=>{
+    axios
+      .post(`https://lambda-treasure-hunt.herokuapp.com/api/bc/last_proof/`, config)
+      .then( res => {
+          // this.setState({res.data})
+          console.log(res.data)
+        })
+      .catch(error => console.log(error));
+  }
+  checkbalance = ()=>{
+    axios
+      .post(`https://lambda-treasure-hunt.herokuapp.com/api/bc/get_balance/`, config)
+      .then( res => {
+          // this.setState({res.data})
+          console.log(res.data)
+        })
+      .catch(error => console.log(error));
   }
   /////////////////////////////////////////////////////
   collectTreasure = ()=>{
@@ -91,6 +127,18 @@ sellTreasure = ()=>{
     .post(`${URL}/sell`, treasureName, config)
     .then( res => {
         console.log("Just sold a treasure")
+      })
+    .catch(error => console.log(error));
+}
+
+////////////////////////////////////////////////////
+nameChanger = ()=>{
+  console.log("Collecting treasure: ")
+  let newName = { 'name': '[Mr Lion]'}
+  axios
+    .post(`${URL}/change_name`, newName, config)
+    .then( res => {
+        console.log("Name change successful")
       })
     .catch(error => console.log(error));
 }
@@ -150,8 +198,13 @@ autoExploring(time, dir) {
         setTimeout(()=> {
           this.sellTreasure();
         }, res.data.cooldown * 1001)
-      } else{
-        console.log("There no shop to sell");
+      } else if(res.data.title == "Pirate Ry's" || res.data.room_id == 467){
+        setTimeout(()=> {
+          this.nameChanger();
+        }, res.data.cooldown * 1001)
+      }
+       else{
+        console.log("There no shop to sell or name change");
       }
       const { room_id, coordinates, exits } = res.data;
       let graph = this.makingGraph(room_id, coordinates, exits)
