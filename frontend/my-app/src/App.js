@@ -35,8 +35,12 @@ class App extends Component {
   }
   componentDidMount(){
     console.log("CompDidMount");  
-    this.getCurrentinfo();   
+    this.init();
   }
+  //////////////////////////////////
+  init = async () => {
+    await this.getCurrentinfo();
+  };
 ////////////////////////////////////////////////////
   getCurrentinfo = ()=> {
     try{
@@ -81,7 +85,7 @@ class App extends Component {
     console.log("Collecting treasure: ")
     let newProof = { 'proof': '[new_proof]'}
     axios
-      .post("https://lambda-treasure-hunt.herokuapp.com/api/bc/mine/", treasureName, config)
+      .post("https://lambda-treasure-hunt.herokuapp.com/api/bc/mine/", newProof, config)
       .then( res => {
           // this.setState({: res.data.})
           console.log(res.data)
