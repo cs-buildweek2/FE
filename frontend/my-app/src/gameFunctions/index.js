@@ -107,6 +107,28 @@ export function validAdjacentRooms(gameMap, index){
   return movementOptions
 }
 
+//needs currentRoom.exits
+export function getRoomWalls(room){
+  let directions = ['n','s','e','w']
+  let walls = []
+  for(let d = 0; d < 4; d++){
+    /*
+    let exits = []
+    for (var exitKey in room.exits){
+      exits.push(exitKey)
+    }
+    console.log(exits)
+    */
+    if(room.exits.indexOf(directions[d]) === -1){
+      //console.log('adding border wall')
+      //console.log('directions[d]: ' + directions[d])
+      walls.push(directions[d])
+    }
+  }
+  console.log(walls)
+  return walls
+}
+
 export function getRoomDisplayState(gameMap, index, nesw){
   let room  = gameMap[index]
   if(room!==null){
