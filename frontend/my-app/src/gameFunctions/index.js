@@ -125,7 +125,7 @@ export function getRoomWalls(room){
       walls.push(directions[d])
     }
   }
-  console.log(walls)
+  // console.log(walls)
   return walls
 }
 
@@ -134,11 +134,11 @@ export function getRoomDisplayState(gameMap, index, nesw){
   if(room!==null){
     let {x,y} = convertIndextoXY(index)
     if(x === 59 && y === 60){
-      console.log('shop identified')
+      // console.log('shop identified')
       return 'green'
     }
     if(x === 68 && y === 47){
-      console.log('name change identified')
+      // console.log('name change identified')
       return 'blue'
     }
     return 'white' //x
@@ -685,8 +685,8 @@ export function initTestMap(){
     "499": [{ "x": 51, "y": 67 }, { "e": 456 }]
   }
   let coords = '', index = -1, exits = [], room = {}, roomExits = {}, roomToAdd = {}, x = 0, y = 0
-  console.log('localStorageMap')
-  console.log(localStorageMap)
+  // console.log('localStorageMap')
+  // console.log(localStorageMap)
   for (var roomKey in localStorageMap) {
     room = localStorageMap[roomKey]
     coords = room[0]

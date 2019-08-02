@@ -5,7 +5,7 @@ const RoomDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 100%;
+  width: auto;
   background: #d4e5e6;
   padding: 10px;
   margin: 0 auto;
@@ -25,10 +25,10 @@ const RoomID = styled.div`
   padding-left: 20px;
 `;
 
-const RoomCoordinates = styled.div`
-  display: flex;
-  padding-right: 50px;
-`;
+// const RoomCoordinates = styled.div`
+//   display: flex;
+//   padding-right: 50px;
+// `;
 
 const DetailsContainer = styled.div`
   display: flex;
@@ -60,9 +60,9 @@ const Description = styled.div`
 class RoomDetails extends Component {
   render() {
     // let {room} = this.props;
-    const { room_id, title, description,players, items, exits, cooldown, errors, messages } = this.props.curRoom;
-    console.log(messages)
-    console.log(items)
+    const { room_id, title, description,players, items, exits, cooldown, } = this.props.curRoom;
+    // console.log(messages)
+    // console.log(items)
     // let items = room.items;
     // let itemDisplayText = 'There are no items in this room.';
     // if(items.length !== 0){
@@ -82,8 +82,8 @@ class RoomDetails extends Component {
         <IDContainer>
         <p>Your Room id: <RoomID>{room_id}</RoomID> </p>
         <Title>{title}</Title>
-        <h3> Message: </h3>
-        <Description>{messages}</Description>
+        {/* <h3> Message: </h3> */}
+        {/* <Description>{messages}</Description> */}
         </IDContainer>
         <DetailsContainer>
           <Item>
