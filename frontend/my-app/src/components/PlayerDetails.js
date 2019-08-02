@@ -62,6 +62,18 @@ const Title = styled.div`
   display: flex;
   margin-right: 10px;
   color: #3b3f3f;
+
+  .button{
+    margin: auto;
+    border-radius: 5px;
+    min-width: 100px;
+    min-height: 30px;
+
+    :hover{
+      background: green;
+      color: white
+    }
+  }
 `;
 
 const Value = styled.div`
@@ -169,7 +181,7 @@ class PlayerDetails extends Component {
     let {name, cooldown, encumbrance, strength, speed, gold, inventory, status, errors, messages} = this.state
     return (
       <PlayerDetailsContainer>
-        <Title><button onClick= {this.firePlayerinfo}> Player Detail</button></Title>
+        <Title><button className = "button" onClick= {this.firePlayerinfo}> Player Detail</button></Title>
         <TopContainer>
           <PlayerName>{name}</PlayerName>
           <PlayerNetworth>{gold}</PlayerNetworth>

@@ -67,8 +67,8 @@ class Room extends Component {
     let roomWalls = [];
     if(displayState!=='black'){
       roomWalls = getRoomWalls(room)
-      console.log('*')
-      console.log(roomWalls.indexOf('n') === -1)
+      // console.log('*')
+      // console.log(roomWalls.indexOf('n') === -1)
     }else{
       roomWalls = []
     }
